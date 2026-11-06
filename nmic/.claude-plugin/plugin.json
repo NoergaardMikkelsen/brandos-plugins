@@ -1,6 +1,6 @@
 {
   "name": "nmic",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Every brand in Brand OS through one MCP server, for Nørgård Mikkelsen's staff. Each tool takes a brand argument. Needs an NMIC key from brandos.nmic.dk (Connector) in BRANDOS_KEY.",
   "author": { "name": "Nørgård Mikkelsen", "email": "brandos@nmic.dk" },
   "repository": "https://github.com/NoergaardMikkelsen/brandos-plugins",

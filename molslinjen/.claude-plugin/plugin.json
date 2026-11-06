@@ -1,6 +1,6 @@
 {
   "name": "molslinjen",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Molslinjen's brand through Brand OS: brief first, build to the rules, check the result, report per rule. Needs a personal key from brandos.nmic.dk (Connector) in BRANDOS_KEY.",
   "author": { "name": "Nørgård Mikkelsen", "email": "brandos@nmic.dk" },
   "repository": "https://github.com/NoergaardMikkelsen/brandos-plugins",
