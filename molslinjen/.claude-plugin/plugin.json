@@ -1,8 +1,10 @@
 {
   "name": "molslinjen",
-  "version": "1.1.0",
-  "description": "Molslinjen's brand through Brand OS: brief first, build to the rules, check the result, report per rule. Needs a personal key from brandos.nmic.dk (Connector) in BRANDOS_KEY.",
+  "displayName": "Molslinjen (Brand OS)",
+  "version": "1.2.0",
+  "description": "Molslinjens brand gennem Brand OS: brief først, byg efter reglerne, tjek resultatet, rapportér pr. regel, og lav plakater med Plakater. Kræver en personlig nøgle fra Connector på brandos.nmic.dk i BRANDOS_KEY.",
   "author": { "name": "Nørgård Mikkelsen", "email": "brandos@nmic.dk" },
+  "homepage": "https://github.com/NoergaardMikkelsen/brandos-plugins/tree/main/molslinjen",
   "repository": "https://github.com/NoergaardMikkelsen/brandos-plugins",
-  "keywords": ["molslinjen", "brand", "cvi", "designguide", "brand-os"]
+  "keywords": ["molslinjen", "brand", "cvi", "designguide", "brand-os", "plakater"]
 }

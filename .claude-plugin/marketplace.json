@@ -1,9 +1,22 @@
 {
   "name": "brandos",
-  "owner": { "name": "Nørgård Mikkelsen", "email": "brandos@nmic.dk" },
-  "metadata": { "description": "Brand OS plugins: one per brand. Each teaches an AI tool when and how to use the brand's guide through Brand OS' MCP server. No brand content lives here; it comes through the MCP server with a personal key from brandos.nmic.dk." },
+  "owner": {
+    "name": "Nørgård Mikkelsen",
+    "email": "brandos@nmic.dk"
+  },
+  "description": "Brand OS-plugins: ét pr. brand. Hvert lærer en AI, hvornår og hvordan den bruger brandets guide og værktøjer gennem Brand OS' MCP-server. Her er intet brandindhold: det kommer fra serveren med en personlig nøgle fra Connector på brandos.nmic.dk.",
   "plugins": [
-    { "name": "molslinjen", "source": "./molslinjen", "description": "Molslinjen: brief, build, check and report against the digital CVI through Brand OS." },
-    { "name": "nmic", "source": "./nmic", "description": "NMIC: every brand in Brand OS through one MCP server, with a brand argument on each tool." }
+    {
+      "name": "molslinjen",
+      "source": "./molslinjen",
+      "description": "Molslinjen: brief, byg, tjek og rapportér efter det digitale CVI, og lav plakater med Plakater, gennem Brand OS.",
+      "category": "design"
+    },
+    {
+      "name": "nmic",
+      "source": "./nmic",
+      "description": "Til NMIC's medarbejdere: alle brands i Brand OS gennem én MCP-server, med et brand på hvert værktøj.",
+      "category": "design"
+    }
   ]
 }
