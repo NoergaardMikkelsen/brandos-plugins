@@ -98,4 +98,4 @@ Kan Cursor læse skills hos dig, så kopiér mappen `skills/molslinjen-brand` de
 - **"Brand OS svarer ikke lige nu":** Prøv igen om lidt. Din nøgle er i orden.
 
 Alle svar og hvad AI'en gør ved dem står i [refusals.md](skills/molslinjen-brand/refusals.md). Grænser, filer og
-plakatens PDF står i [hovedmappens README](../README.md).
+plakatens PDF står i [hovedmappens AGENTS.md](../AGENTS.md).
