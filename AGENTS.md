@@ -37,7 +37,8 @@ til Brand OS.
   brandet hører til (for Molslinjen: det digitale CVI eller Plakater). Så åbner nøglen hele brandguiden. Uden det svarer
   serveren med en forklaring på dansk, og Connector tilbyder ingen ny nøgle.
 - **Handlingerne** i kundens værktøjer følger de værktøjer, du har. Mangler en handling, har du ikke værktøjet, eller
-  brandet har ingen sådan handling. Det er Nørgård Mikkelsen, der giver roller i en kundes værktøjer.
+  brandet har ingen sådan handling. Det er Nørgård Mikkelsen, der giver roller i en kundes værktøjer. NMIC's
+  medarbejdere har alle kunders aktive værktøjer og derfor alle handlinger.
 
 ## Værktøjerne
 
@@ -120,8 +121,8 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
   [plugin.json](https://code.claude.com/docs/en/plugins-reference),
   [marketplace.json](https://code.claude.com/docs/en/plugins/marketplace-reference) og
   [skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
-- Tjek før en ændring: `claude plugin validate .`, `claude plugin validate ./molslinjen` og
-  `claude plugin validate ./nmic`.
+- Tjek før en ændring: `claude plugin validate --strict .`, `claude plugin validate --strict ./molslinjen` og
+  `claude plugin validate --strict ./nmic`.
 - `posters.md` og `refusals.md` er ens i de to plugins. Ret dem begge.
 - Hæv `version` i `plugin.json`, når et plugin ændres. Ellers får de, der har det installeret, ikke ændringen.
 - Sandheden er connectoren i Brand OS (`brands/` og `docs/guide/brand-mcp.md`). Ændrer den sig, skal teksterne her
