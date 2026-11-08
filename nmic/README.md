@@ -94,7 +94,7 @@ Kan Cursor læse skills hos dig, så kopiér mappen `skills/brandos-brands` dert
 - **Udløbet:** Tryk **Forny** under Connector. Nøglen virker igen med det samme og med samme værdi.
 - **Ukendt eller slettet:** Lav en ny nøgle, og sæt den ind, hvor den gamle stod.
 - **"Nøglen giver ikke adgang til nmic":** Nøglen er ikke en NMIC-medarbejders. Brug dit eget brands plugin.
-- **Ingen plakathandlinger:** Du har ikke en rolle i Plakater. Bed en af NMIC's administratorer om den, og forbind serveren igen bagefter.
+- **Ingen plakathandlinger:** NMIC's medarbejdere har alle kunders aktive værktøjer, så handlingerne mangler kun, hvis Plakater ikke er aktivt i Brand OS, eller nøglen ikke er en NMIC-medarbejders. Forbind serveren igen, og tjek nøglen under Connector.
 - **"Brand OS svarer ikke lige nu":** Prøv igen om lidt. Din nøgle er i orden.
 
 Alle svar og hvad AI'en gør ved dem står i [refusals.md](skills/brandos-brands/refusals.md). Grænser, filer og
