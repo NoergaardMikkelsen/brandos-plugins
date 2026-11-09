@@ -123,7 +123,7 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
   [skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
 - Tjek før en ændring: `claude plugin validate --strict .`, `claude plugin validate --strict ./molslinjen` og
   `claude plugin validate --strict ./nmic`.
-- `posters.md` og `refusals.md` er ens i de to plugins. Ret dem begge.
+- `posters.md`, `refusals.md` og `proposals.md` er ens i de to plugins. Ret dem alle.
 - Hæv `version` i `plugin.json`, når et plugin ændres. Ellers får de, der har det installeret, ikke ændringen.
 - Sandheden er connectoren i Brand OS (`brands/` og `docs/guide/brand-mcp.md`). Ændrer den sig, skal teksterne her
   følge med. Her kommer aldrig brandindhold.
