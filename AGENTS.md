@@ -124,6 +124,9 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
 - Tjek før en ændring: `claude plugin validate --strict .`, `claude plugin validate --strict ./molslinjen` og
   `claude plugin validate --strict ./nmic`.
 - `posters.md`, `refusals.md` og `proposals.md` er ens i de to plugins. Ret dem alle.
-- Hæv `version` i `plugin.json`, når et plugin ændres. Ellers får de, der har det installeret, ikke ændringen.
+- Hæv `version` i `plugin.json`, når et plugin ændres. Ellers får de, der har det installeret, ikke ændringen, heller
+  ikke med auto-opdatering: Claude Code sammenligner på versionen og lader filerne stå, når den er den samme.
+- Auto-opdatering er noget, hver person slår til én gang for markedspladsen `brandos` (`/plugin` → Marketplaces →
+  Enable auto-update); en markedsplads kan ikke selv bede om det. Opsætningen i hvert plugins README siger det.
 - Sandheden er connectoren i Brand OS (`brands/` og `docs/guide/brand-mcp.md`). Ændrer den sig, skal teksterne her
   følge med. Her kommer aldrig brandindhold.

@@ -40,7 +40,10 @@ Connector, så fjern den ene igen (`claude mcp remove brandos-molslinjen`), så 
 `/mcp` viser, om serveren er forbundet. Skillen hedder `/molslinjen:molslinjen-brand`, men den starter af sig selv, når
 en opgave handler om Molslinjen.
 
-Opdatér senere med `claude plugin marketplace update brandos` og `claude plugin update molslinjen@brandos`.
+**Slå automatisk opdatering til, én gang.** Markedspladser uden for Anthropics egne opdaterer ikke af sig selv. I Claude Code:
+skriv `/plugin`, gå til fanen **Marketplaces**, vælg `brandos`, og vælg **Enable auto-update**. Derefter henter Claude Code
+nye versioner af pluginet kort efter din første besked i en session (op til ti minutter senere), og den næste session bruger
+dem. Uden det: `claude plugin marketplace update brandos` og `claude plugin update molslinjen@brandos`, når du vil have det nye.
 
 ## 3. Codex
 
