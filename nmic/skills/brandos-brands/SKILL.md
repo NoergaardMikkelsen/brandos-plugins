@@ -36,7 +36,9 @@ Brand:
 3. **Check:** `check_design` with a structured description of what you made (what you leave out isn't judged), and
    `check_copy` with `text` (at most 20,000 characters) and `context.situation` (for Molslinjen: `marketing`,
    `velkomst`, `praktisk`, `kundeservice`, `sikkerhed`, `forsinkelse`, `aflysning`, `klage` or `intern`). Fix every
-   `fail` and run again. If the same rule still fails after three rounds, stop and report it as open. `not_evaluated`
+   `fail` and run again: the check answers `proposals`, which you show the person verbatim and apply with
+   `apply_proposals` only after their yes ([proposals.md](proposals.md)). If the same rule still fails after three
+   rounds, stop and report it as open. `not_evaluated`
    means nothing could be judged. It is not a pass: describe more and run it again.
 4. **Report** with `report_template`: rules by id, what and why, deviations, pass or fail per rule, verdict.
 

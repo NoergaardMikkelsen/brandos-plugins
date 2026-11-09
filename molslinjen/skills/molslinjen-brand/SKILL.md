@@ -37,8 +37,10 @@ Molslinjen:
    - `check_copy` takes `text` (at most 20,000 characters) and `context.situation`: `marketing`, `velkomst`,
      `praktisk`, `kundeservice`, `sikkerhed`, `forsinkelse`, `aflysning`, `klage` or `intern`. The situation decides
      how strict the tone rules are.
-   - Fix every `fail` and run the check again. If the same rule still fails after three rounds, stop and report it as
-     open rather than looping.
+   - The check answers `proposals`: what would fix each fail, as data, with a Danish `text` each. Show them to the
+     person verbatim, wait for their yes, then `apply_proposals` with the ids they agreed to; see
+     [proposals.md](proposals.md). Never change a design the person hasn't seen the change to. If the same rule still
+     fails after three rounds, stop and report it as open rather than looping.
    - `verdict` is `pass`, `pass_with_warnings`, `fail` or `not_evaluated`. `not_evaluated` means nothing could be
      judged. It is not a pass: describe more and run it again.
 4. **Report** with `report_template` (pass `task` and the check's markdown): the rules you followed by id, what you did
