@@ -1,7 +1,7 @@
 {
   "name": "molslinjen",
   "displayName": "Molslinjen (Brand OS)",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Molslinjens brand gennem Brand OS: brief først, byg efter reglerne, tjek resultatet, rapportér pr. regel, og lav plakater med Plakater. Kræver en personlig nøgle fra Connector på brandos.nmic.dk i BRANDOS_KEY.",
   "author": { "name": "Nørgård Mikkelsen", "email": "brandos@nmic.dk" },
   "homepage": "https://github.com/NoergaardMikkelsen/brandos-plugins/tree/main/molslinjen",
