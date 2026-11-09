@@ -23,19 +23,24 @@ Copy this and tick it off:
 
 ```
 Plakat:
-- [ ] 1. get_brand_brief (task "plakat ...", format)
-- [ ] 2. plakater_list_templates
+- [ ] 1. get_brand_brief (task "plakat ...", format, line)
+- [ ] 2. plakater_list_templates (once; pick a style kampagne template for a campaign)
 - [ ] 3. Texts for every field, checked with check_copy
 - [ ] 4. plakater_check_text on the final texts
-- [ ] 5. The person says go (template, format, texts)
-- [ ] 6. plakater_make
+- [ ] 5. The person says go (template, format, line, texts)
+- [ ] 6. plakater_make with line
 - [ ] 7. plakater_result while it answers status running
-- [ ] 8. The link to the person, with who can open it and for how long
+- [ ] 8. Read check in the answer; fix and make again if it fails on something you can change
+- [ ] 9. The link to the person, with who can open it and for how long, and that human review is outstanding
 ```
 
-1. **`get_brand_brief`** with the task and format, for the poster's rules.
-2. **`plakater_list_templates`**, once per conversation. Use only the template keys, format keys, field names, limits
-   and photo keys it returns. Formats are among A4, A3, A2, 50x70 and 70x100; the list decides.
+1. **`get_brand_brief`** with the task, format and `line` (the route, for example `BORNHOLMSLINJEN`), for the poster's
+   rules. For a poster task it answers the compact brief; `detail: "fuld"` gives the rest, which you rarely need.
+2. **`plakater_list_templates`**, once per conversation. Use only the template keys, format keys, field names, limits,
+   photo keys and line keys it returns. Formats are among A4, A3, A2, 50x70 and 70x100; the list decides. Each template
+   says `style` (`kampagne`: logo centred at the top, 40–60 % of the width, the guide's campaign layout; `information`:
+   logo at the bottom, the guide's on-board poster) and `logo` (position and width). **A campaign poster takes a
+   `kampagne` template.** The brand brief names them.
 3. **Write a text for every field** of the template. Check them with `check_copy` (the situation in
    `context.situation`). A field you don't want goes in `remove` (for example `"h2"` or `"btn"`). Sample text never
    comes along by itself, and a missing field is an error. Headlines break only at `\n`.
@@ -44,7 +49,11 @@ Plakat:
    softer text when that is better.
 5. **Ask before you make it**, unless the person already gave the texts and asked for the poster: show template,
    format and texts. A poster costs 5 of the person's 100 actions an hour.
-6. **`plakater_make`** with `template`, `format` and `texts` (an object: field name to text). Optional: `orientation`
+6. **`plakater_make`** with `template`, `format`, `line` and `texts` (an object: field name to text). **`line` is the
+   route whose logo the poster carries**, in Brand OS's names (`BORNHOLMSLINJEN`, `MOLSLINJEN`, `ØRESUNDSLINJEN`,
+   `ALSLINJEN`, `LANGELANDSLINJEN`, `FANØLINJEN`, `SAMSØLINJEN`, `KOSTERLINJEN`; `KOMBARDO EXPRESSEN` has no line logo
+   and is refused). Without it the template's own logo stands, which is MOLSLINJEN: never leave it out for another
+   route. Optional: `orientation`
    (`portrait` by default, or `landscape`), `mode` (`print`: CMYK with bleed and crop marks, the default; `office`: RGB
    for an office printer), `remove`, `photo` (a photo key from the list), `elements` (shared images from
    `plakater_list_elements` by their `url`, with `x`, `y` and `w` in percent of the width) and `days` (see below).
@@ -60,7 +69,7 @@ Plakat:
 | A busy message from the tool, or `Plakatværktøjet svarer ikke lige nu. Prøv igen om lidt.` | Say so in Danish. Don't call again in a loop: once after a short while at most |
 | `status: done`, `ok: false`, `violations` | The poster breaks the CVI, so there is no PDF. Fix what each violation says and call `plakater_make` again. That costs 5 again. After two more tries, show the person the violations instead |
 | `status: running` and a `job` | Not done yet: ask with `plakater_result` |
-| `status: done`, `ok: true`, `download` | Done: give the link |
+| `status: done`, `ok: true`, `download`, `check`, `artifact` | Done. `check` is Brand OS's own design check of the poster the tool rendered (its design state, tied to the PDF by `artifact.sha256`), not of a description: read `check.verdict`, `check.failures` and `check.warnings`. `I1` always fails until a person has reviewed the poster: say so, never claim it is approved. A failure you can change (wrong `line`, a `kampagne` rule on an `information` template) means make it again with the change. Then give the link |
 
 ## Asking for a result
 
@@ -93,6 +102,10 @@ the link from `plakater_make`.
 If `toneChecked` is false, tone and spelling weren't checked: run `plakater_check_text` and say what it found.
 
 You have the link and the check results, not the poster itself. Don't describe how it looks beyond what you sent.
+
+**Don't call `check_design` for a poster the tool made:** the answer's `check` already ran the same rules on the
+rendered poster. `check_design` is for material made elsewhere. The check is structural (what the poster holds, where,
+how big, which colours), not a visual inspection; say so if asked. `report_template` only formats a result.
 
 ## Other poster tools
 
