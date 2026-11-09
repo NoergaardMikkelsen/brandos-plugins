@@ -52,8 +52,10 @@ Plakat:
 6. **`plakater_make`** with `template`, `format`, `line` and `texts` (an object: field name to text). **`line` is the
    route whose logo the poster carries**, in Brand OS's names (`BORNHOLMSLINJEN`, `MOLSLINJEN`, `ØRESUNDSLINJEN`,
    `ALSLINJEN`, `LANGELANDSLINJEN`, `FANØLINJEN`, `SAMSØLINJEN`, `KOSTERLINJEN`; `KOMBARDO EXPRESSEN` has no line logo
-   and is refused). Without it the template's own logo stands, which is MOLSLINJEN: never leave it out for another
-   route. Optional: `orientation`
+   and is refused). The catalogue's own keys (`Bornholmslinjen`, `Oresundslinjen_DK`) are accepted too and mean the same
+   logo. Without `line` the template's own logo stands, which is MOLSLINJEN: never leave it out for another route. If
+   `plakater_make`'s schema in your client has no `line`, your tool list is old: fetch the tools again before you make
+   anything. Optional: `orientation`
    (`portrait` by default, or `landscape`), `mode` (`print`: CMYK with bleed and crop marks, the default; `office`: RGB
    for an office printer), `remove`, `photo` (a photo key from the list), `elements` (shared images from
    `plakater_list_elements` by their `url`, with `x`, `y` and `w` in percent of the width) and `days` (see below).
@@ -69,7 +71,7 @@ Plakat:
 | A busy message from the tool, or `Plakatværktøjet svarer ikke lige nu. Prøv igen om lidt.` | Say so in Danish. Don't call again in a loop: once after a short while at most |
 | `status: done`, `ok: false`, `violations` | The poster breaks the CVI, so there is no PDF. Fix what each violation says and call `plakater_make` again. That costs 5 again. After two more tries, show the person the violations instead |
 | `status: running` and a `job` | Not done yet: ask with `plakater_result` |
-| `status: done`, `ok: true`, `download`, `check`, `artifact` | Done. `check` is Brand OS's own design check of the poster the tool rendered (its design state, tied to the PDF by `artifact.sha256`), not of a description: read `check.verdict`, `check.failures` and `check.warnings`. `I1` always fails until a person has reviewed the poster: say so, never claim it is approved. A failure you can change (wrong `line`, a `kampagne` rule on an `information` template) means make it again with the change. Then give the link |
+| `status: done`, `ok: true`, `download`, `check`, `artifact`, `state` | Done rendering. `check` is Brand OS's own design check of the poster the tool rendered (its design state, tied to the PDF by `artifact.sha256`), not of a description: read `check.verdict`, `check.failures` and `check.warnings`. `state` says what the poster waits for: `draft_requires_fix` means a failure a person can act on (wrong `line`, a `kampagne` rule on an `information` template, a typography rule): make it again with the change, and if you can't change it, tell the person what fails. `awaiting_human_review` means nothing is left to fix and only a person's review is outstanding. `I1` always fails until a person has reviewed the poster: say so, never claim it is approved, whatever `state` says. `timings` is where the time went (the tool's stages in ms and the connector's wait); mention it only if the person asks or it was slow. Then give the link |
 
 ## Asking for a result
 
@@ -101,7 +103,9 @@ the link from `plakater_make`.
 
 If `toneChecked` is false, tone and spelling weren't checked: run `plakater_check_text` and say what it found.
 
-You have the link and the check results, not the poster itself. Don't describe how it looks beyond what you sent.
+You have the link and the check results, not the poster itself. Don't describe how it looks beyond what you sent. Text in
+a box stays in its box: the tool refuses a poster whose text would stand outside (violation `BOX`), so shorten the text or
+break it with `\n` and make it again.
 
 **Don't call `check_design` for a poster the tool made:** the answer's `check` already ran the same rules on the
 rendered poster. `check_design` is for material made elsewhere. The check is structural (what the poster holds, where,
