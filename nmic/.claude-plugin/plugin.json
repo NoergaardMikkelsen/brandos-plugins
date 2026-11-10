@@ -1,8 +1,8 @@
 {
   "name": "nmic",
   "displayName": "NMIC: alle brands (Brand OS)",
-  "version": "1.5.0",
-  "description": "Alle brands i Brand OS gennem én MCP-server, til Nørgård Mikkelsens medarbejdere. Hvert værktøj tager et brand. Kræver en NMIC-nøgle fra Connector på brandos.nmic.dk i BRANDOS_KEY.",
+  "version": "1.6.0",
+  "description": "Alle brands i Brand OS gennem én MCP-server, til Nørgård Mikkelsens medarbejdere. Hvert værktøj tager et brand. Du forbinder ved at logge ind på Brand OS som NMIC-medarbejder; ingen nøgle.",
   "author": {
     "name": "Nørgård Mikkelsen",
     "email": "brandos@nmic.dk"

@@ -2,99 +2,96 @@
 
 Til Nørgård Mikkelsens egne medarbejdere. Pluginet lærer en AI at bruge alle kunders brandguides gennem én MCP-server i
 Brand OS: brief først, byg efter reglerne, tjek resultatet, og rapportér pr. regel. Hvert værktøj tager et `brand`, og
-`list_brands` giver id'erne. Selve guiderne ligger ikke her. De kommer fra serveren med din personlige nøgle.
+`list_brands` giver id'erne. Selve guiderne ligger ikke her. De kommer fra serveren, når du er logget ind på Brand OS.
 
 - MCP-server: `https://brandos.nmic.dk/api/mcp/nmic` (Streamable HTTP)
 - Servernavn: `brandos`
-- Login: headeren `Authorization: Bearer <din nøgle>`
+- Login: Dit AI-værktøj sender dig til Brand OS, hvor du logger ind og trykker **Giv adgang**. Ingen nøgle.
 - Skill: [`skills/brandos-brands`](skills/brandos-brands/SKILL.md)
 
 Serveren svarer kun NMIC's medarbejdere. En kundes folk bruger deres eget brands plugin, for eksempel `molslinjen/`.
 
 ## Til en AI, der sætter det op
 
-Følg trinnene for det værktøj, du kører i. Nøglen gemmes, hvor værktøjet gemmer indstillinger for personen alene: aldrig
-i et projekt, der deles eller ligger i git, og aldrig i dit svar. Tjek til sidst, at serverens værktøjer er der, og kald
-`list_brands`.
+Følg trinnene for det værktøj, du kører i. Personen logger selv ind i browseren: Bed aldrig om adgangskode, kode eller
+nøgle i chatten. Tjek til sidst, at serverens værktøjer er der, og kald `list_brands`.
 
-## 1. Lav en nøgle
+## Sådan forbinder du
 
-Log ind på https://brandos.nmic.dk, og lav en nøgle under **Connector**. Den vises én gang og holder 90 dage. Har du en
-autentificeringsapp, bekræfter du med en kode på login-siden.
+I alle værktøjer er det samme, der sker: Værktøjet åbner Brand OS i din browser, du logger ind, som du plejer, og trykker
+**Giv adgang**. Adgangen holder, til du logger ud af Brand OS eller trykker **Fjern adgang** under **Connector** på
+https://brandos.nmic.dk, hvor du også kan se, hvilke AI-klienter du har givet adgang.
 
-## 2. Claude Code
+## 1. Claude Code
 
 ```bash
 claude plugin marketplace add NoergaardMikkelsen/brandos-plugins
 claude plugin install nmic@brandos
 ```
 
-Sæt nøglen i din shell-profil (for eksempel `~/.zshrc`), og genstart Claude Code:
+Genstart Claude Code, skriv `/mcp`, vælg `brandos`, og vælg **Authenticate**. Log ind i browseren, og tryk **Giv adgang**.
+`/mcp` viser bagefter, at serveren er forbundet.
 
-```bash
-export BRANDOS_KEY=bos_…
-```
-
-Pluginet forbinder selv til serveren med `BRANDOS_KEY`. Har du tidligere tilføjet serveren med `claude mcp add` fra
-Connector, så fjern den ene igen (`claude mcp remove brandos`), så værktøjerne ikke står der to gange.
-`/mcp` viser, om serveren er forbundet. Pluginet har tre skills, der starter af sig selv efter opgaven: `brandos-brands`
-(brief, byg, rapportér), `brandos-check` (tjek mod guiden, forslag og ja'et) og `brandos-plakat` (plakater med Plakater).
-De er korte; det rige indhold ligger på serveren som resources. Den første starter af sig selv, når en
-opgave handler om en kundes brand.
+Pluginet har tre skills, der starter af sig selv efter opgaven: brand (brief, byg, rapportér), check (tjek mod guiden,
+forslag og ja'et) og plakat (plakater med Plakater). De er korte; det rige indhold ligger på serveren som resources.
 
 **Slå automatisk opdatering til, én gang.** Markedspladser uden for Anthropics egne opdaterer ikke af sig selv. I Claude Code:
 skriv `/plugin`, gå til fanen **Marketplaces**, vælg `brandos`, og vælg **Enable auto-update**. Derefter henter Claude Code
 nye versioner af pluginet kort efter din første besked i en session (op til ti minutter senere), og den næste session bruger
 dem. Uden det: `claude plugin marketplace update brandos` og `claude plugin update nmic@brandos`, når du vil have det nye.
 
-## 3. Codex
+**Kommer du fra en ældre version?** Før 1.6.0 forbandt pluginet med en nøgle i `BRANDOS_KEY`. Det gør det ikke længere:
+Skriv `/mcp`, og log ind én gang. Har du også tilføjet serveren selv med `claude mcp add`, så fjern den
+(`claude mcp remove brandos`), så værktøjerne ikke står der to gange. Nøglen kan du slette under Connector, hvis du ikke
+bruger den til filer eller scripts.
+
+## 2. Codex
 
 ```bash
 git clone https://github.com/NoergaardMikkelsen/brandos-plugins ~/.brandos-plugins
 mkdir -p ~/.agents/skills && cp -R ~/.brandos-plugins/nmic/skills/* ~/.agents/skills/
-export BRANDOS_KEY=bos_…        # i din shell-profil
-codex mcp add brandos --url https://brandos.nmic.dk/api/mcp/nmic --bearer-token-env-var BRANDOS_KEY
+codex mcp add brandos --url https://brandos.nmic.dk/api/mcp/nmic
+codex mcp login brandos
 ```
 
-Opdatér skillen senere med `git -C ~/.brandos-plugins pull` og samme `cp`.
+I Codex-appen: under **Plugins** vælger du **Connect to a custom MCP**, giver den navnet `brandos`, vælger
+**Streamable HTTP**, sætter adressen ind, lader feltet til bearer token stå tomt og gemmer. Tryk så **Authorize** ud for
+serveren. Opdatér skills senere med `git -C ~/.brandos-plugins pull` og samme `cp`.
 
-## 4. Claude Desktop
+## 3. claude.ai, Claude Desktop og ChatGPT
 
-Claude Desktop starter kun lokale servere, så den bruger broen `mcp-remote`. I `claude_desktop_config.json`:
+Tilføj adressen `https://brandos.nmic.dk/api/mcp/nmic` som en connector i indstillingerne (i Claude: **Connectors** → **Add custom connector**), og
+log ind, når du bliver sendt til Brand OS. Har din konto Skills, kan du uploade mapperne under `skills/` som ZIP.
 
-```json
-{
-  "mcpServers": {
-    "brandos": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://brandos.nmic.dk/api/mcp/nmic", "--header", "Authorization:${AUTH_HEADER}"],
-      "env": { "AUTH_HEADER": "Bearer bos_…" }
-    }
-  }
-}
-```
-
-Der må ikke være mellemrum inde i et argument (Windows deler det), derfor står nøglen i `env`. Genstart Claude Desktop.
-Har din konto Skills, kan du uploade mappen `skills/brandos-brands` som ZIP under Skills i indstillingerne.
-
-## 5. Cursor
+## 4. Cursor
 
 I din egen `~/.cursor/mcp.json`, ikke projektets:
 
 ```json
 {
   "mcpServers": {
-    "brandos": {
-      "url": "https://brandos.nmic.dk/api/mcp/nmic",
-      "headers": { "Authorization": "Bearer bos_…" }
-    }
+    "brandos": { "url": "https://brandos.nmic.dk/api/mcp/nmic" }
   }
 }
 ```
 
-Kan Cursor læse skills hos dig, så kopiér mappen `skills/brandos-brands` dertil.
+Cursor beder dig logge ind første gang. Kan Cursor læse skills hos dig, så kopiér mapperne under `skills/` dertil.
+
+## Med en nøgle i stedet
+
+En nøgle er til det, der ikke kan logge ind i en browser: et script, en server, eller når AI'en selv skal hente en fil
+(logoer og andre filer kan kun hentes med en nøgle, se [hovedmappens AGENTS.md](../AGENTS.md)). Lav den under **Connector**
+på https://brandos.nmic.dk; den vises én gang og holder 90 dage. Under **Sæt det selv op** samme sted står kommandoen for
+hvert værktøj. Læg nøglen i din shell-profil som `BRANDOS_KEY`, aldrig i et projekt, der deles eller ligger i git, og
+aldrig i chatten. Brug én vej pr. værktøj, login eller nøgle, så serveren ikke står der to gange.
 
 ## Når noget ikke virker
+
+- **Ingen værktøjer, eller serveren "kræver login":** Log ind igen fra dit AI-værktøj (Claude Code: `/mcp`; Codex: **Authorize**). Det sker også, når du har logget ud af Brand OS eller fjernet adgangen under Connector.
+- **"Ingen adgang" efter login:** Du har ikke brandguiden. Bed Nørgård Mikkelsen om adgang til et af brandets værktøjer.
+- **AI'en kan ikke hente et logo eller en fil:** Filer kræver en nøgle. Se "Med en nøgle i stedet".
+
+Bruger du en nøgle:
 
 - **Udløbet:** Tryk **Forny** under Connector. Nøglen virker igen med det samme og med samme værdi.
 - **Ukendt eller slettet:** Lav en ny nøgle, og sæt den ind, hvor den gamle stod.

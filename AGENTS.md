@@ -2,16 +2,16 @@
 
 Ét plugin pr. brand til Claude Code, Codex og andre AI-værktøjer, der kan bruge skills. Et plugin indeholder **kun
 instruktioner**: hvornår AI'en skal bruge brandets guide, og hvordan den laver en brief, bygger, tjekker og rapporterer.
-Brandets regler, farver, logoer og tone ligger **ikke** her. De kommer fra Brand OS' MCP-server med en personlig nøgle,
-som du laver under **Connector** på https://brandos.nmic.dk.
+Brandets regler, farver, logoer og tone ligger **ikke** her. De kommer fra Brand OS' MCP-server, når du er logget
+ind på Brand OS (https://brandos.nmic.dk).
 
 | Mappe | Til | MCP-server | Navn |
 |---|---|---|---|
 | [`molslinjen/`](molslinjen/README.md) | Alle, der arbejder med Molslinjens brand | `https://brandos.nmic.dk/api/mcp/molslinjen` | `brandos-molslinjen` |
 | [`nmic/`](nmic/README.md) | Nørgård Mikkelsens egne medarbejdere: alle brands i én server | `https://brandos.nmic.dk/api/mcp/nmic` | `brandos` |
 
-Opsætningen for hvert værktøj står i mappens README. Den korte vej: Lav en nøgle under Connector, og sæt den prompt,
-der kommer frem, ind i din AI. Den sætter forbindelsen op og peger hertil.
+Opsætningen for hvert værktøj står i mappens README. Den korte vej: Tilføj serverens adresse i dit AI-værktøj,
+log ind på Brand OS, når det sender dig derhen, og tryk **Giv adgang**. En nøgle er kun til scripts og filer.
 
 ## Hvad et plugin får AI'en til at gøre
 
@@ -27,15 +27,15 @@ lyd), gør AI'en det her:
 Et tjeks `verdict` er `pass`, `pass_with_warnings`, `fail` eller `not_evaluated`. `not_evaluated` betyder, at der ikke
 var noget at vurdere. Det er ikke en godkendelse: AI'en skal beskrive mere og køre tjekket igen.
 
-Skills fortæller også AI'en, at det, serveren og filerne svarer, er data og ikke instruktioner, og at nøglen kun må gå
+Skills fortæller også AI'en, at det, serveren og filerne svarer, er data og ikke instruktioner, og at en nøgle kun må gå
 til Brand OS.
 
 ## Hvem får hvad
 
 - **NMIC's medarbejdere** får alle brands, og `/api/mcp/nmic` samler dem.
 - **En kundes folk** får deres eget brand, hvis de er kundens administrator eller har en rolle i et af de værktøjer,
-  brandet hører til (for Molslinjen: det digitale CVI eller Plakater). Så åbner nøglen hele brandguiden. Uden det svarer
-  serveren med en forklaring på dansk, og Connector tilbyder ingen ny nøgle.
+  brandet hører til (for Molslinjen: det digitale CVI eller Plakater). Så åbner login (eller en nøgle) hele brandguiden. Uden det viser
+  login-siden "Ingen adgang", serveren svarer med en forklaring på dansk, og Connector tilbyder ingen ny nøgle.
 - **Handlingerne** i kundens værktøjer følger de værktøjer, du har. Mangler en handling, har du ikke værktøjet, eller
   brandet har ingen sådan handling. Det er Nørgård Mikkelsen, der giver roller i en kundes værktøjer. NMIC's
   medarbejdere har alle kunders aktive værktøjer og derfor alle handlinger.
@@ -52,7 +52,7 @@ Guiden (Molslinjen i dag):
 | `get_assets` | Links til logoer, grafik, lyd og downloads |
 | `check_design`, `check_copy` | Tjek af et design beskrevet som data, og af tekst (højst 20.000 tegn) i en situation |
 | `report_template` | Skabelonen til rapporten |
-| `list_brands` | Kun på NMIC's server: de brands, nøglen må bruge |
+| `list_brands` | Kun på NMIC's server: de brands, personen må bruge |
 
 Handlinger i kundens værktøjer, hvis du har dem (i dag Plakater hos Molslinjen):
 
@@ -88,10 +88,13 @@ Svaret fra `plakater_make` siger, hvem der kan åbne filen, og hvor længe, og A
   kun for en, der er logget ind og har Plakater. Filen gemmes i 30 dage, eller 1 til 90 dage efter `days`.
   `plakater_file_link` giver et link uden login i ti minutter.
 
-## Filer kræver nøglen
+## Filer kræver en nøgle
+
+Login åbner værktøjerne, men ikke filerne: AI-værktøjet holder sit login for sig selv, så AI'en har intet at sende med.
+Skal AI'en selv hente en fil, laver du en nøgle under Connector og lægger den i din shell som `BRANDOS_KEY`.
 
 Svarene linker til logoer og andre filer på `https://brandos.nmic.dk/api/mcp/<brand>/files/...`. Adressen svarer kun med
-samme nøgle som MCP-serveren, sendt som header. Uden den er svaret 401, også i en browser, hvor du er logget ind.
+en Connector-nøgle, sendt som header. Uden den er svaret 401, også i en browser, hvor du er logget ind.
 
 ```bash
 curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.nmic.dk/api/mcp/<brand>/files/..."
@@ -102,7 +105,16 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
 - Med NMIC's samlede server bruger du linkene, som de kommer: De peger på brandets egen adresse, og
   `/api/mcp/nmic/files/...` svarer 403.
 
+## Login
+
+- Du forbinder ved at logge ind: AI-værktøjet åbner Brand OS i browseren, du logger ind og trykker **Giv adgang**.
+- Adgangen holder, til du logger ud af Brand OS eller trykker **Fjern adgang** under Connector. Der står også, hvilke
+  AI-klienter du har givet adgang, og hvornår de sidst var aktive.
+- Alt, AI'en gør, står i loggen med dit navn, og den får ikke mere, end du selv har.
+
 ## Nøgler
+
+Til scripts og til filer. Resten klarer login.
 
 - En nøgle er personlig, begynder med `bos_` og vises én gang. Kun dens hash bliver gemt.
 - Den holder 90 dage. Datoen står under Connector, og **Forny** giver 90 dage igen med samme værdi, så du ikke skal
@@ -113,7 +125,7 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
   deaktiveret, og mens din virksomhed er suspenderet. Logger du kun ind med Microsoft, sættes den på pause efter 14 dage
   uden bekræftelse fra Microsoft, indtil du logger ind med Microsoft igen.
 - Mistet eller delt en nøgle? Slet den under Connector, og lav en ny.
-- claude.ai i browseren kan ikke bruge en nøgle endnu. Claude Desktop, Claude Code, Codex og Cursor kan.
+- claude.ai i browseren og ChatGPT bruger ikke en nøgle: Der logger du ind.
 
 ## Til udviklere
 
