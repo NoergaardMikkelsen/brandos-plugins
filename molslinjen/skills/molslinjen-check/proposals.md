@@ -25,6 +25,20 @@ keeps the person in charge of their own material, and the server enforces it: `a
 6. Use the returned `design` from then on. Report with `report_template` what was proposed, what the person said yes to,
    and what is still open.
 
+## When the client shows a dialog instead
+
+With a client that speaks Streamable HTTP and elicitation (Claude Code, Claude Desktop), `apply_proposals` without the yes
+makes Brand OS ask the person itself: a dialog in the client with the proposals and one choice, "Anvend forslagene". Then:
+
+- The person's answer in that dialog **is** the yes or the no. Don't ask again in the chat, and don't call
+  `apply_proposals` again with `confirmed_by_person: true` for the same proposals.
+- `status: applied` with `confirmed_via: 'person'` means they said yes in the dialog; report it as their choice.
+- `status: declined` means they said no. Say so, change nothing, and don't propose the same again unless the design changes.
+- `status: confirmation_required` means the client couldn't ask, or nobody answered within about 20 seconds: fall back to
+  the steps above, show the texts and wait for the answer in the chat.
+- With a progress token, `plakater_make` and `plakater_result` also report progress while they wait; show it if your client
+  does, and don't call again while a stream is open.
+
 ## What you must not do
 
 - Don't call `apply_proposals` with `confirmed_by_person: true` before the person has seen the texts and answered. If you

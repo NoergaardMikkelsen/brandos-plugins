@@ -37,7 +37,9 @@ export BRANDOS_KEY=bos_…
 
 Pluginet forbinder selv til serveren med `BRANDOS_KEY`. Har du tidligere tilføjet serveren med `claude mcp add` fra
 Connector, så fjern den ene igen (`claude mcp remove brandos`), så værktøjerne ikke står der to gange.
-`/mcp` viser, om serveren er forbundet. Skillen hedder `/nmic:brandos-brands`, men den starter af sig selv, når en
+`/mcp` viser, om serveren er forbundet. Pluginet har tre skills, der starter af sig selv efter opgaven: `brandos-brands`
+(brief, byg, rapportér), `brandos-check` (tjek mod guiden, forslag og ja'et) og `brandos-plakat` (plakater med Plakater).
+De er korte; det rige indhold ligger på serveren som resources. Den første starter af sig selv, når en
 opgave handler om en kundes brand.
 
 **Slå automatisk opdatering til, én gang.** Markedspladser uden for Anthropics egne opdaterer ikke af sig selv. I Claude Code:

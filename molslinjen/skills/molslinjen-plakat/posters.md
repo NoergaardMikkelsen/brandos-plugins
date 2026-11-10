@@ -1,7 +1,7 @@
 # Posters with Plakater, through Brand OS
 
 Contents: when the actions are there · the order of calls · reading the answer of `plakater_make` · asking for a
-result · giving the person the PDF · what each call costs · when to stop.
+result · several takes at once · giving the person the PDF · what each call costs · when to stop.
 
 With NMIC's joined server every call below also takes `brand` (for example `"brand": "molslinjen"`).
 
@@ -77,12 +77,54 @@ Plakat:
 
 - `plakater_result` waits up to 20 seconds on the server before it answers, so call it again straight away, without
   pausing, and only while it answers `status: running`.
-- One call at a time. Never several `plakater_result` or `plakater_make` calls together.
+- One call at a time. Never several `plakater_result` or `plakater_make` calls together: to fetch several posters, give
+  `plakater_result` the list `jobs` (up to five) in one call.
 - An error means the job is over. When it says `Kald ikke plakater_result igen med dette job`, don't. Offer a new
   poster only if the person wants one, since it costs 5 again.
 - Stop after 8 calls for the same job (about three minutes). Tell the person it isn't finished and give them the job,
   so they can ask again later. The tool itself gives up on a job after a few minutes.
 - `plakater_result` costs nothing against the limit, which is exactly why it must not run on forever.
+
+## Several takes at once: plakater_variants
+
+When the person wants to choose between takes on the same poster, or when the brief leaves something open (a campaign
+or an information template, which photo, how long the headline), make two to five takes in one call instead of making
+them one after another:
+
+```
+Bud:
+- [ ] 1. Read the resource molslinjen://eksempler (once): what a good poster looks like and why, what a take can change
+- [ ] 2. The base: template, format, line, every text, as plakater_make takes it
+- [ ] 3. Two to five variants, each with a label, the creative why, and only what it changes
+- [ ] 4. The person says go (it costs 5 per take)
+- [ ] 5. plakater_variants(base, variants)
+- [ ] 6. plakater_result with jobs, again while it answers status running
+- [ ] 7. Every take to the person: label, why, state, check, link, side by side; the person chooses
+```
+
+1. **`plakater_variants`** takes `base` (the poster every take starts from, with the fields `plakater_make` takes) and
+   `variants`: two to five objects, each with `label` (what sets it apart, for the person), `why` (the creative reason,
+   from the brief) and only the fields it changes: `template`, `photo` (chosen by mood with `find_photo`), `texts` for
+   some fields (the base's other texts stay), `line`, `format`, `orientation`, `mode`, `remove`, `days`. Vary what the
+   brief leaves open: a `kampagne` against an `information` template, a photo by mood, a shorter headline, a box on a
+   photo against a plain field, the same poster for another route. Never vary the colour pairs, the typography or the
+   wave's share: those are the CVI.
+2. It answers at once with `status: running`, `variants` (each with `id`, `label`, `why`, `changes` and its `job`), the
+   list `jobs`, and `next`. A take the tool didn't start stands with `not_started: true` and its `error`, and its id is in
+   `not_started`: the tool makes one poster at a time per instance, so with many takes one may not start. Its price goes
+   back. Offer to make it alone with `plakater_make` in a minute, if the person wants it; don't call `plakater_variants`
+   again for it.
+3. **`plakater_result` with `jobs`** (the list from the answer) fetches them together and waits up to 20 seconds. The
+   answer has `posters`, one per job, each as a single `plakater_make` answer (`status`, `ok`, `download`, `check`, `state`,
+   `violations` or `error`), and `running` with the jobs still going. Call it again with `running` while `status` is
+   `running`, without pausing; stop after 8 calls, as for one poster. `status: done` means every take is done, not that
+   any is approved.
+4. **Show the person every take**, in Danish, side by side: its label, why, `state`, what `check` found, and the link
+   with who can open it and for how long (as below). A take with `ok: false` broke a rule and has no PDF: say which rule.
+   The person chooses; `human_review` is outstanding on all of them, and you never call one approved.
+
+`plakater_make` with `wait: false` answers at once with the job instead of waiting 20 seconds. Use it only when you start
+several posters yourself and fetch them together with `jobs`; for one poster, let it wait.
 
 ## Giving the person the PDF
 
@@ -123,7 +165,8 @@ how big, which colours), not a visual inspection; say so if asked. `report_templ
 | Call | Counts against 100 an hour per person |
 |---|---|
 | `plakater_make` | 5. When the tool answers that nothing was started (a refusal or busy), 4 come back, so it counts as 1. A poster that ran and broke rules still counts 5 |
-| `plakater_result` | 0 |
+| `plakater_variants` | 5 per take named (two to five takes: 10 to 25). A take the tool said it didn't start goes back, less 1 for the call |
+| `plakater_result` | 0, also with `jobs` |
 | `plakater_check_text`, `plakater_list_templates`, `plakater_list_elements`, `plakater_file_link`, `plakater_open` | 1 each |
 
 The guide's own tools (`get_brand_brief`, `check_copy` and the rest) aren't actions and don't count here. All calls
@@ -137,6 +180,6 @@ Stop and tell the person instead of calling again when:
 
 - the same call has failed twice with the same answer;
 - `plakater_make` has given violations three times;
-- `plakater_result` has answered running 8 times, or answered an error;
+- `plakater_result` has answered running 8 times, or answered an error (also with `jobs`);
 - the hourly limit is reached;
 - the tool says it doesn't answer, after one retry.

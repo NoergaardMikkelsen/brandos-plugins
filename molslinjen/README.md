@@ -37,8 +37,10 @@ export BRANDOS_KEY=bos_…
 
 Pluginet forbinder selv til serveren med `BRANDOS_KEY`. Har du tidligere tilføjet serveren med `claude mcp add` fra
 Connector, så fjern den ene igen (`claude mcp remove brandos-molslinjen`), så værktøjerne ikke står der to gange.
-`/mcp` viser, om serveren er forbundet. Skillen hedder `/molslinjen:molslinjen-brand`, men den starter af sig selv, når
-en opgave handler om Molslinjen.
+`/mcp` viser, om serveren er forbundet. Pluginet har tre skills, der starter af sig selv efter opgaven: `molslinjen-brand`
+(brief, byg, rapportér), `molslinjen-check` (tjek mod guiden, forslag og ja'et) og `molslinjen-plakat` (plakater med
+Plakater). De er korte; det rige indhold ligger på serveren som resources (`molslinjen://guide-for-agenter`,
+`molslinjen://eksempler`, `molslinjen://katalog`, reglerne).
 
 **Slå automatisk opdatering til, én gang.** Markedspladser uden for Anthropics egne opdaterer ikke af sig selv. I Claude Code:
 skriv `/plugin`, gå til fanen **Marketplaces**, vælg `brandos`, og vælg **Enable auto-update**. Derefter henter Claude Code

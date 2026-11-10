@@ -123,7 +123,8 @@ curl -fsS -H "Authorization: Bearer $BRANDOS_KEY" -o logo.svg "https://brandos.n
   [skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
 - Tjek før en ændring: `claude plugin validate --strict .`, `claude plugin validate --strict ./molslinjen` og
   `claude plugin validate --strict ./nmic`.
-- `posters.md`, `refusals.md` og `proposals.md` er ens i de to plugins. Ret dem alle.
+- Hvert plugin har tre skills: brand (brief, byg, rapportér; `refusals.md`), check (`proposals.md`) og plakat (`posters.md`).
+  Skills er korte og peger på serverens resources; `posters.md`, `refusals.md` og `proposals.md` er ens i de to plugins. Ret dem alle.
 - Hæv `version` i `plugin.json`, når et plugin ændres. Ellers får de, der har det installeret, ikke ændringen, heller
   ikke med auto-opdatering: Claude Code sammenligner på versionen og lader filerne stå, når den er den samme.
 - Auto-opdatering er noget, hver person slår til én gang for markedspladsen `brandos` (`/plugin` → Marketplaces →
