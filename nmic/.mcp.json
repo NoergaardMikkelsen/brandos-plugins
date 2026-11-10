@@ -2,8 +2,7 @@
   "mcpServers": {
     "brandos": {
       "type": "http",
-      "url": "https://brandos.nmic.dk/api/mcp/nmic",
-      "headers": { "Authorization": "Bearer ${BRANDOS_KEY}" }
+      "url": "https://brandos.nmic.dk/api/mcp/nmic"
     }
   }
 }

@@ -4,7 +4,7 @@
     "name": "Nørgård Mikkelsen",
     "email": "brandos@nmic.dk"
   },
-  "description": "Brand OS-plugins: ét pr. brand. Hvert lærer en AI, hvornår og hvordan den bruger brandets guide og værktøjer gennem Brand OS' MCP-server. Her er intet brandindhold: det kommer fra serveren med en personlig nøgle fra Connector på brandos.nmic.dk.",
+  "description": "Brand OS-plugins: ét pr. brand. Hvert lærer en AI, hvornår og hvordan den bruger brandets guide og værktøjer gennem Brand OS' MCP-server. Her er intet brandindhold: det kommer fra serveren, når man er logget ind på Brand OS (brandos.nmic.dk).",
   "plugins": [
     {
       "name": "molslinjen",

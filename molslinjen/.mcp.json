@@ -2,8 +2,7 @@
   "mcpServers": {
     "brandos-molslinjen": {
       "type": "http",
-      "url": "https://brandos.nmic.dk/api/mcp/molslinjen",
-      "headers": { "Authorization": "Bearer ${BRANDOS_KEY}" }
+      "url": "https://brandos.nmic.dk/api/mcp/molslinjen"
     }
   }
 }
