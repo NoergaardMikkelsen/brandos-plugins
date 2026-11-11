@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "brandos-bhj": {
+      "type": "http",
+      "url": "https://brandos.nmic.dk/api/mcp/bhj",
+      "headers": {
+        "Authorization": "Bearer ${BRANDOS_KEY}"
+      }
+    }
+  }
+}

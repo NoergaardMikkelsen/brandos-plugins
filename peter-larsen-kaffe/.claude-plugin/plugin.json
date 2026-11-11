@@ -1,0 +1,21 @@
+{
+  "name": "peter-larsen-kaffe",
+  "displayName": "Peter Larsen Kaffe (Brand OS)",
+  "version": "1.0.0",
+  "description": "Peter Larsen Kaffes brand gennem Brand OS: brief først, byg efter reglerne, tjek tekst og farver, rapportér pr. regel. Kræver en personlig nøgle fra Connector på brandos.nmic.dk i BRANDOS_KEY.",
+  "author": {
+    "name": "Nørgård Mikkelsen",
+    "email": "brandos@nmic.dk"
+  },
+  "homepage": "https://github.com/NoergaardMikkelsen/brandos-plugins/tree/main/peter-larsen-kaffe",
+  "repository": "https://github.com/NoergaardMikkelsen/brandos-plugins",
+  "keywords": [
+    "peter larsen kaffe",
+    "plk",
+    "ordentlig",
+    "brand",
+    "cvi",
+    "designguide",
+    "brand-os"
+  ]
+}

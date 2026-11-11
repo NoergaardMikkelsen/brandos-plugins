@@ -8,6 +8,10 @@ som du laver under **Connector** på https://brandos.nmic.dk.
 | Mappe | Til | MCP-server | Navn |
 |---|---|---|---|
 | [`molslinjen/`](molslinjen/README.md) | Alle, der arbejder med Molslinjens brand | `https://brandos.nmic.dk/api/mcp/molslinjen` | `brandos-molslinjen` |
+| [`bhj/`](bhj/README.md) | Alle, der arbejder med BHJs brand | `https://brandos.nmic.dk/api/mcp/bhj` | `brandos-bhj` |
+| [`peter-larsen-kaffe/`](peter-larsen-kaffe/README.md) | Alle, der arbejder med Peter Larsen Kaffes brand | `https://brandos.nmic.dk/api/mcp/peter-larsen-kaffe` | `brandos-peter-larsen-kaffe` |
+| [`odense-marcipan/`](odense-marcipan/README.md) | Alle, der arbejder med Odense Marcipans brand | `https://brandos.nmic.dk/api/mcp/odense-marcipan` | `brandos-odense-marcipan` |
+| [`noergaard-mikkelsen/`](noergaard-mikkelsen/README.md) | Alle, der arbejder med Nørgård Mikkelsens brand | `https://brandos.nmic.dk/api/mcp/noergaard-mikkelsen` | `brandos-noergaard-mikkelsen` |
 | [`nmic/`](nmic/README.md) | Nørgård Mikkelsens egne medarbejdere: alle brands i én server | `https://brandos.nmic.dk/api/mcp/nmic` | `brandos` |
 
 Opsætningen for hvert værktøj står i mappens README. Den korte vej: Lav en nøgle under Connector, og sæt den prompt,
@@ -42,7 +46,7 @@ til Brand OS.
 
 ## Værktøjerne
 
-Guiden (Molslinjen i dag):
+Guiden hos Molslinjen. BHJ, Peter Larsen Kaffe, Odense Marcipan og Nørgård Mikkelsen har en kortere guide med `get_brand_brief`, `list_rules`, `get_rule`, `search_guide`, `get_colors`, `check_color`, `get_typography`, `check_copy` og `get_assets` (se deres README):
 
 | Værktøj | Gør |
 |---|---|

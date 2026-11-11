@@ -1,6 +1,6 @@
 ---
 name: brandos-brands
-description: Material for Nørgård Mikkelsen's clients' brands through Brand OS' joined MCP server for NMIC staff (today Molslinjen and its lines, KOMBARDO EXPRESSEN, Kombardo!) - the brief first, build from it, then report. Use whenever an NMIC task touches a client brand in Brand OS - opslag, SoMe, annonce, nyhedsbrev, mail, web, app, tekst, tone of voice, præsentation, video, AI-billeder, logoer, farver - or when Brand OS, Connector or the NMIC key comes up. Checking is the skill brandos-check; posters are brandos-plakat.
+description: Material for Nørgård Mikkelsen's clients' brands through Brand OS' joined MCP server for NMIC staff (today Molslinjen and its lines, KOMBARDO EXPRESSEN, Kombardo!, BHJ, Peter Larsen Kaffe, Odense Marcipan, and Nørgård Mikkelsen's own brand) - the brief first, build from it, then report. Use whenever an NMIC task touches a client brand in Brand OS - opslag, SoMe, annonce, nyhedsbrev, mail, web, app, tekst, tone of voice, præsentation, video, AI-billeder, logoer, farver - or when Brand OS, Connector or the NMIC key comes up. Checking is the skill brandos-check; posters are brandos-plakat.
 ---
 
 # Client brands, through Brand OS
@@ -9,7 +9,7 @@ The MCP server `brandos` (https://brandos.nmic.dk/api/mcp/nmic) joins every bran
 shown with a prefix, such as `mcp__plugin_nmic_brandos__get_brand_brief`; the names below are the last part. **Every tool
 takes a `brand`**; call `list_brands` for the ids when unsure. None of the brands' rules, colours, logos or tone are in this
 skill. They come from the server, and the server's
-own resources say the rest: `molslinjen://guide-for-agenter` (the order of calls, costs, when to stop),
+own resources say the rest. For BHJ, Peter Larsen Kaffe, Odense Marcipan and Nørgård Mikkelsen the whole guide is the resource `brand://<id>/guide`, and their check tools are `check_copy` and `check_color`. For Molslinjen: `molslinjen://guide-for-agenter` (the order of calls, costs, when to stop),
 `molslinjen://eksempler` (what a good poster looks like and why), `molslinjen://katalog` (photos, icons, logos, graphics),
 `molslinjen://regler/{id}` and `molslinjen://guide/{kapitel}` (the rules and the guide's chapters). Read them instead of
 asking the person what the brand is.
