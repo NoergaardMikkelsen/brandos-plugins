@@ -17,6 +17,30 @@
       "source": "./nmic",
       "description": "Til NMIC's medarbejdere: alle brands i Brand OS gennem én MCP-server, med et brand på hvert værktøj.",
       "category": "design"
+    },
+    {
+      "name": "bhj",
+      "source": "./bhj",
+      "description": "BHJ: brief, byg, tjek og rapportér efter brandguiden gennem Brand OS.",
+      "category": "design"
+    },
+    {
+      "name": "peter-larsen-kaffe",
+      "source": "./peter-larsen-kaffe",
+      "description": "Peter Larsen Kaffe: brief, byg, tjek og rapportér efter brandguiden gennem Brand OS.",
+      "category": "design"
+    },
+    {
+      "name": "odense-marcipan",
+      "source": "./odense-marcipan",
+      "description": "Odense Marcipan: brief, byg, tjek og rapportér efter brandguiden gennem Brand OS.",
+      "category": "design"
+    },
+    {
+      "name": "noergaard-mikkelsen",
+      "source": "./noergaard-mikkelsen",
+      "description": "Nørgård Mikkelsen: brief, byg, tjek og rapportér efter brandguiden gennem Brand OS.",
+      "category": "design"
     }
   ]
 }

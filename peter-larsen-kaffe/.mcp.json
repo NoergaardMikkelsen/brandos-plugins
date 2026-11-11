@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "brandos-peter-larsen-kaffe": {
+      "type": "http",
+      "url": "https://brandos.nmic.dk/api/mcp/peter-larsen-kaffe",
+      "headers": {
+        "Authorization": "Bearer ${BRANDOS_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "bhj",
+  "displayName": "BHJ (Brand OS)",
+  "version": "1.0.0",
+  "description": "BHJs brand gennem Brand OS: brief først, byg efter reglerne, tjek tekst og farver, rapportér pr. regel. Kræver en personlig nøgle fra Connector på brandos.nmic.dk i BRANDOS_KEY.",
+  "author": {
+    "name": "Nørgård Mikkelsen",
+    "email": "brandos@nmic.dk"
+  },
+  "homepage": "https://github.com/NoergaardMikkelsen/brandos-plugins/tree/main/bhj",
+  "repository": "https://github.com/NoergaardMikkelsen/brandos-plugins",
+  "keywords": [
+    "bhj",
+    "bhj ingredients",
+    "\"We see value in everything\"",
+    "brand",
+    "cvi",
+    "designguide",
+    "brand-os"
+  ]
+}
